@@ -24,3 +24,5 @@
 - name: Install RedHat Sensu
   yum: name=sensu state=present
 
+- name: Install sensu-plugin gem
+  gem: name=sensu-plugin state=latest
