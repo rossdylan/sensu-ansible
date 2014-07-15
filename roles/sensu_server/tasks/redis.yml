@@ -1,0 +1,13 @@
+---
+# Install the redis server for the sensu server
+
+- name: Install Redis Server on Debian
+  apt: name=redis-server state=present
+  when: ansible_os_family == "Debian"
+
+- name: Install Redis Server on Redhat
+  yum: name=redis state=present enablerepo=epel
+  when: ansible_os_family == "RedHat"
+
+- name: Start and Enable Redis Server
+  service: name=redis enabled=yes state=started

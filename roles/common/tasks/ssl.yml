@@ -1,0 +1,5 @@
+---
+# Setup the ssl certificates for both sensu client and server
+
+- name: Create ssl directory
+  command: mkdir -p /etc/sensu/ssl

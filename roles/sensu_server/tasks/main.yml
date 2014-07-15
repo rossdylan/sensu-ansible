@@ -1,0 +1,7 @@
+---
+# Setup a sensu server
+
+- include: ssl.yml
+- include: rabbit.yml
+- include: redis.yml
+- include: sensu_server.yml

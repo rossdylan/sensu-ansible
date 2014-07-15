@@ -1,0 +1,6 @@
+---
+# Install and configure the sensu client
+
+- include: rabbitmq.yml
+- include: ssl.yml
+- include: sensu.yml

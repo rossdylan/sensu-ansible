@@ -1,0 +1,7 @@
+{
+    "dashboard": {
+        "port": {{ sensu_dashboard_port }},
+        "user": "{{ sensu_dashboard_user }}",
+        "password": "{{ sensu_dashboard_password }}"
+    }
+}

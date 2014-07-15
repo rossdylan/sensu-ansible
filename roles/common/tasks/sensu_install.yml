@@ -1,0 +1,26 @@
+---
+# Role for doing the common setup work needed to install sensu
+# on both a client and server
+- name: Install EPEL on RedHat
+  yum: name=http://mirror.pnl.gov/epel/6/i386/epel-release-6-8.noarch.rpm state=present
+  when: ansible_os_family == "RedHat"
+
+- name: Install Sensu RedHat repo
+  copy: src=roles/common/files/sensu.repo dest=/etc/yum.repos.d/sensu.repo
+  when: ansible_os_family == "RedHat"
+
+- name: Install Sensu apt key
+  apt_key: url=http://repos.sensuapp.org/apt/pubkey.gpg state=present
+  when: ansible_os_family == "Debian"
+
+- name: Install Sensu Debian repo
+  apt_repository: repo='deb http://repos.sensuapp.org/apt sensu main' state=present
+  when: ansible_os_family == "Debian"
+
+- name: Install Debian Sensu
+  apt: update_cache=yes name=sensu state=present
+  when: ansible_os_family == "Debian"
+
+- name: Install RedHat Sensu
+  yum: name=sensu state=present
+

@@ -1,0 +1,5 @@
+---
+# Configure Sensu RabbitMQ connection
+
+- name: Copy Sensu RabbitMQ config
+  template: src=roles/sensu_client/templates/rabbitmq.json dest=/etc/sensu/conf.d/rabbitmq.json

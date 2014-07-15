@@ -1,0 +1,48 @@
+---
+# Install and configure the rabbitmq server
+- name: Install RabbitMQ Repo key on Debian
+  apt_key: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
+  when: ansible_os_family == "Debian"
+
+- name: Install RabbitMQ Repo on Debian
+  apt: update_cache=yes name=rabbitmq-server state=present
+  when: ansible_os_family == "Debian"
+
+- name: Install Erlang on Debian
+  apt: name=erlang-nox state=present
+  when: ansible_os_family == "Debian"
+
+- name: Install RabbitMQ Server on Debian
+  apt: name=rabbitmq-server state=present
+  when: ansible_os_family == "Debian"
+
+
+- name: Install Erlang on RedHat
+  yum: name=erlang state=present
+  when: ansible_os_family == "RedHat"
+
+- name: Install RabbitMQ Server on RedHat
+  yum: name=http://www.rabbitmq.com/releases/rabbitmq-server/v3.2.1/rabbitmq-server-3.2.1-1.noarch.rpm state=present
+  when: ansible_os_family == "RedHat"
+
+- name: Make RabbitMQ SSL Directory
+  command: mkdir -p /etc/rabbitmq/ssl
+
+- name: Copy RabbitMQ SSL Certs
+  command: cp /tmp/ssl_certs/{{ item }} /etc/rabbitmq/ssl/
+  with_items:
+      - sensu_ca/cacert.pem
+      - server/cert.pem
+      - server/key.pem
+
+- name: Configure RabbitMQ SSL Listener
+  copy: src=roles/sensu_server/files/rabbitmq.config dest=/etc/rabbitmq/rabbitmq.config
+
+- name: Start RabbitMQ and make sure it starts on Boot
+  service: name=rabbitmq-server enabled=yes state=started
+
+- name: Add sensu RabbitMQ VHOST
+  rabbitmq_vhost: name={{ sensu_rabbitmq_vhost }} state=present
+
+- name: Add sensu RabbitMQ User
+  rabbitmq_user: user={{ sensu_rabbitmq_user }} password={{ sensu_rabbitmq_password }} state=present vhost={{ sensu_rabbitmq_vhost }} configure_priv=.* read_priv=.* write_priv=.*

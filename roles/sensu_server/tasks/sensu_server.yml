@@ -1,0 +1,18 @@
+---
+# Configure the Sensu Server
+
+- name: Copy Sensu Redis Config
+  template: src=roles/sensu_server/templates/redis.json dest=/etc/sensu/conf.d/redis.json
+
+- name: Copy Sensu API Config
+  template: src=roles/sensu_server/templates/api.json dest=/etc/sensu/conf.d/api.json
+
+- name: Copy Sensu Dashboard Config
+  template: src=roles/sensu_server/templates/dashboard.json dest=/etc/sensu/conf.d/dashboard.json
+
+- name: Start and Enable Sensu Services
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+      - sensu-server
+      - sensu-api
+      - sensu-dashboard

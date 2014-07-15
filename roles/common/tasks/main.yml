@@ -1,0 +1,5 @@
+---
+# Common setup for sensu client/server
+
+- include: sensu_install.yml
+- include: ssl.yml

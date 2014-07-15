@@ -1,0 +1,17 @@
+---
+# Create the certificates needed to use sensu
+
+- name: Copy ssl cert generator
+  copy: src=roles/sensu_server/files/ssl_certs.tar dest=/tmp/ssl_certs.tar
+
+- name: Untar ssl_certs
+  command: tar --overwrite -xvf ssl_certs.tar chdir=/tmp
+
+- name: Run ./ssl_certs
+  command: ./ssl_certs.sh generate chdir=/tmp/ssl_certs
+
+- name: Fetch ssl certs For clients
+  fetch: src=/tmp/ssl_certs/client/{{ item }} dest=roles/sensu_client/files/{{ item }} flat=yes
+  with_items:
+      - cert.pem
+      - key.pem

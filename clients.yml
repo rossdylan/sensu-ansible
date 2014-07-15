@@ -1,0 +1,7 @@
+---
+
+- hosts: sensu_clients
+  roles:
+    - common
+    - sensu_client
+

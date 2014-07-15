@@ -1,0 +1,5 @@
+---
+# Define the dependencies for the sensu_client role
+
+dependencies:
+    - { role: common }

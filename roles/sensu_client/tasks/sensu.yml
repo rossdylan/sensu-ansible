@@ -1,0 +1,8 @@
+---
+# Configure the sensu client
+
+- name: Copy Sensu Client Config
+  template: src=roles/sensu_client/templates/client.json dest=/etc/sensu/conf.d/client.json
+
+- name: Start and Enable Sensu Client Service
+  service: name=sensu-client state=started enabled=yes

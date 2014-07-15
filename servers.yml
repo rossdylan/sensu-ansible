@@ -1,0 +1,6 @@
+---
+
+- hosts: sensu_servers
+  roles:
+    - common
+    - sensu_server

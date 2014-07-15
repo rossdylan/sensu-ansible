@@ -1,0 +1,8 @@
+---
+# Copy the ssl certs/keys needed to talk to the sensu server
+
+- name: Copy Client Cert
+  copy: src=roles/sensu_client/files/cert.pem dest=/etc/sensu/ssl/cert.pem
+
+- name: Copy Client Private Key
+  copy: src=roles/sensu_client/files/key.pem dest=/etc/sensu/ssl/key.pem
