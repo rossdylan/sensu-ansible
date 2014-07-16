@@ -41,7 +41,7 @@
   yum: name=sensu state=present
 
 - name: Install sensu-plugin gem
-  gem: name=sensu-plugin state=latest
+  gem: name=sensu-plugin state=latest user_install=false
 
 - name: Install dummy config.json
   copy: src=roles/common/files/config.json dest=/etc/sensu/config.json
