@@ -1,6 +1,22 @@
 ---
 # Role for doing the common setup work needed to install sensu
 # on both a client and server
+- name: Install Ruby Dependencies on RedHat
+  yum: name={{ item }} state=present
+  with_items:
+    - rubygems
+    - ruby-devel
+    - gcc
+  when: ansible_os_family == "RedHat"
+
+- name: Install Ruby Dependencies on Debain
+  apt: name={{ item }} state=present
+  with_items:
+    - rubygems
+    - ruby-dev
+    - gcc
+  when: ansible_os_family == "Debian"
+
 - name: Install EPEL on RedHat
   yum: name=http://mirror.pnl.gov/epel/6/i386/epel-release-6-8.noarch.rpm state=present
   when: ansible_os_family == "RedHat"
@@ -26,3 +42,6 @@
 
 - name: Install sensu-plugin gem
   gem: name=sensu-plugin state=latest
+
+- name: Install dummy config.json
+  copy: src=roles/common/files/config.json dest=/etc/sensu/config.json
