@@ -4,4 +4,6 @@
   roles:
     - common
     - sensu_client
+  vars:
+    subscriptions: [ "all" ]
 
