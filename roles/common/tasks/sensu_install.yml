@@ -22,7 +22,7 @@
   when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int >= 6 and ansible_lsb.major_release|int < 7
 
 - name: Install EPEL on RedHat 7
-  yum: name=http://mirror.pnl.gov/epel/7/x86_64/e/epel-release-7-2.noarch.rpmstate=present
+  yum: name=http://mirror.pnl.gov/epel/7/x86_64/e/epel-release-7-2.noarch.rpm state=present
   when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int >= 7 and ansible_lsb.major_release|int < 8
 
 # There is no sensu repo for EL7, but the internet has told me the packages for 6 stil work

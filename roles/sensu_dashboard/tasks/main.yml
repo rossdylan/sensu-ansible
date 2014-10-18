@@ -1,0 +1,15 @@
+---
+
+- name: Install Uchiwa Dashboard on RedHat
+  yum: name=uchiwa state=latest
+  when: ansible_os_family == "RedHat"
+
+- name: Install Uchiwa Dashboard on Debain
+  apt: name=uchiwa state=latest
+  when: ansible_os_family == "Debian"
+
+- name: Render Uchiwa Config Template
+  template: owner=uchiwa src=roles/sensu_dashboard/templates/uchiwa.json dest=/etc/sensu/uchiwa.json 
+
+- name: Enable and start Uchiwa
+  service: name=uchiwa enabled=yes state=started

@@ -2,5 +2,8 @@
 
 - hosts: sensu_servers
   roles:
-    - common
     - sensu_server
+    - sensu_dashboard
+    - sensu_client
+  vars:
+    subscriptions: '[ "all" ]'

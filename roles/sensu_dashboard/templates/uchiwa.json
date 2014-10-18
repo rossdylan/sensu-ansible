@@ -1,0 +1,21 @@
+{
+    "sensu": [
+        {% for host in groups['sensu_servers'] %}
+        {
+            "name": "{{ host }}",
+            "host": "{{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}",
+            "ssl": false,
+            "port": {{ sensu_api_port }},
+            "user": "{{ sensu_api_user }}",
+            "password": "{{ sensu_api_password }}"
+        }{%if not loop.last %},{% endif %}
+        {% endfor %}
+    ],
+    "uchiwa": {
+        "user": "{{ uchiwa_user }}",
+        "pass": "{{ uchiwa_pass }}",
+        "port": {{ uchiwa_port }},
+        "stats": {{ uchiwa_stats }},
+        "refresh": {{ uchiwa_refresh }}
+    }
+}
