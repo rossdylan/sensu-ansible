@@ -2,6 +2,7 @@
     "client": {
         "name": "{{ ansible_hostname }}",
         "address": "{{ ansible_default_ipv4.address }}",
-        "subscriptions": {{ subscriptions }}
+        "subscriptions": {{ subscriptions }},
+        "last_updated": "{{ ansible_date_time['iso8601'] }}"
     }
 }
